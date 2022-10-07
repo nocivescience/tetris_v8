@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hola</h1>
+    <canvas id="game" width="320" height="640"></canvas>
+</body>
+<script>
+    const tetrominos = {
+  'A': [
+    [0,0,0,0],
+    [1,1,1,1],
+    [0,0,0,0],
+    [0,0,0,0]
+  ],
+  'B': [
+    [1,0,0],
+    [1,1,1],
+    [0,0,0],
+  ],
+  'C': [
+    [0,0,1],
+    [1,1,1],
+    [0,0,0],
+  ],
+  'D': [
+    [1,1],
+    [1,1],
+  ],
+  'E': [
+    [0,1,1],
+    [1,1,0],
+    [0,0,0],
+  ],
+  'G': [
+    [1,1,0],
+    [0,1,1],
+    [0,0,0],
+  ],
+  'H': [
+    [0,1,0],
+    [1,1,1],
+    [0,0,0],
+  ]
+};
+    const gameEl=document.getElementById('game');
+    const ctx=gameEl.getContext('2d');
+    const tetrominoSequence=[]
+    function randInt(min,max){
+        min=Math.ceil(min);
+        max=Math.floor(max);
+        return Math.floor(Math.random()*(max-min)+min)
+    }
+    function generateSequence(){
+        const sequence=['A','B','C','D','E','F','G','H'];
+        while(sequence.length){
+            rand=randInt(0,sequence.length);
+            const name=sequence.splice(rand,1)[0];
+            tetrominoSequence.push(name);
+        }
+        return tetrominoSequence;
+    }
+    function getNextTetromino(){
+        if(tetrominoSequence.length===0){
+            generateSequence();
+        }
+    }
+    document.addEventListener('click',(e)=>{
+        getNextTetromino()
+        console.log(tetrominoSequence)
+        
+    });
+</script>
+</html>
